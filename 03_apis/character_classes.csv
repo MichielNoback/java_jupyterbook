@@ -1,0 +1,40 @@
+Character class	Description													
+.	Any character													
+[]	"Set definition, eg [a-z] matches all lowercase characters;  [aAbB1234] matches an a, A, b, B or numbers 1, 2 ,3, 4"	 [aAbB1234] matches an a, A, b, B or numbers 1, 2 ,3, 4												
+[^]	Negated set definition, eg [^a-z] matches anything BUT lowercase characters													
+X|Z	Matches X or Z (either one will suffice)													
+^regex	Anchors regex at beginning of line													
+regex$	Anchors regex at end of line													
+\d \D	"Any digit, [0-9];  any non-digit, [^0-9]"	 any non-digit, [^0-9]												
+\s \S	"Any whitespace character;  any non-whitespace character"	 any non-whitespace character												
+\w \W	"A word character, short for [a-zA-Z_0-9];  same but negated"													
+\b	Word boundary													
+														
+Quantifier	Description													
+{x}	Occurs exactly x times													
+{x, }	Occurs at least x times													
+{, x}	Occurs at the most x times													
+*	"Occurs zero or more times; same as {0, }"													
++	"Occurs one or more times; same as {1, }"													
+?	"Occurs zero or one time; same as {0, 1}"													
+*?	"Non-greedy: ""?"" after a quantifier makes it a reluctant quantifier, it tries to find the smallest match."													
+														
+Method	Description													
+s.matches(regex)	Tells whether or not this string matches the given regular expression.													
+s.split(regex)	Splits this string around matches of the given regular expression													
+s.split(regex, limit)	Idem, but the limit parameter controls the number of times the pattern is applied													
+s.replaceAll(regex, replacement)	Replaces each substring of this string that matches the given regular expression with the given replacement													
+s.replaceFirst(regex, replacement)	Replaces the first substring of this string that matches the given regular expression with the given replacement.													
+														
+Keyword	Class	Package	Subclass	All										
+public	Y	Y	Y	Y										
+protected	Y	Y	Y	n										
+default/no modifier	Y	Y	n	n										
+private	Y	n	n	n										
+														
+														
+														
+														
+														
+														
+														

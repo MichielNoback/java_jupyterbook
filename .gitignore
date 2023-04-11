@@ -1,0 +1,5 @@
+# Jetbrains
+.idea/
+
+# Jupyterbook
+_build/

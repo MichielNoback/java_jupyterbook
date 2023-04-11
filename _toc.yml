@@ -1,0 +1,85 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+#options:  # The options key will be applied to all chapters, but not sub-sections
+  # numbered: True
+parts:
+  - caption: General info
+    chapters:
+    - file: keyboard_shortcuts
+  - caption: Part 1 - Getting started
+    numbered: True
+    chapters:
+    - file: 01_getting_started/intellij
+    - file: 01_getting_started/essentials
+    - file: 01_getting_started/basic_program_design
+    - file: 01_getting_started/first_look_at_objects
+  - caption: Part 2 - Syntax
+    numbered: True
+    chapters:
+    - file: 02_syntax/data_types
+    - file: 02_syntax/arrays
+    - file: 02_syntax/operators
+    - file: 02_syntax/flow_control
+    - file: 02_syntax/methods
+    - file: 02_syntax/packages_imports
+    - file: 02_syntax/naming_commenting
+    - file: 02_syntax/demo_case_naming
+  - caption: Part 3 - Core APIs
+    numbered: True
+    chapters:
+    - file: 03_apis/interfaces
+    - file: 03_apis/collections
+    - file: 03_apis/class_object_methods
+    - file: 03_apis/records
+    - file: 03_apis/sorting
+    - file: 03_apis/exceptions
+    - file: 03_apis/io
+    - file: 03_apis/regex
+  - caption: Part 4 - OOP
+    numbered: True
+    chapters:
+    - file: 04_oop/encapsulation
+    - file: 04_oop/access_modifiers
+    - file: 04_oop/inheritance
+    - file: 04_oop/enums
+    - file: 04_oop/encapsulation_revisited
+    - file: 04_oop/design_rules
+    - file: 04_oop/inner_classes
+  - caption: Part 5 - Web Apps
+    numbered: True
+    chapters:
+    - file: 05_web/refresher
+    - file: 05_web/toolbox
+    - file: 05_web/first_project
+    - file: 05_web/mvc
+    - file: 05_web/thymeleaf_expressions
+    - file: 05_web/thymeleaf_flow_control
+    - file: 05_web/sessions
+    - file: 05_web/servlet_details
+    - file: 05_web/databases
+    - file: 05_web/ajax
+    - file: 05_web/filters_upload
+    - file: 05_web/webbased_exercises1
+    - file: 05_web/html_cheatsheet
+  - caption: Part 6 - Leftovers
+    numbered: True
+    chapters:
+    - file: 06_leftovers/JUnit_basics
+    - file: 06_leftovers/JUnit_advanced
+    - file: 06_leftovers/UML
+    - file: 06_leftovers/demo_case_refactoring
+  - caption: Part 7 - Spring (Boot)
+    numbered: True
+    chapters:
+    - file: 07_spring/REST_and_MVC_with_spring
+    - file: 07_spring/Dependency_injection
+    - file: 07_spring/spring_annotations
+
+
+
+
+
+
