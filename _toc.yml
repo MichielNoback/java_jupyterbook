@@ -15,7 +15,7 @@ parts:
     - file: 01_getting_started/intellij
     - file: 01_getting_started/essentials
     - file: 01_getting_started/basic_program_design
-    - file: 01_getting_started/first_look_at_objects
+    - file: 01_getting_started/objects_and_classes
   - caption: Part 2 - Syntax
     numbered: True
     chapters:
