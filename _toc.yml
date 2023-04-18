@@ -37,6 +37,7 @@ parts:
     - file: 03_apis/exceptions
     - file: 03_apis/io
     - file: 03_apis/regex
+    - file: 03_apis/functional_programming.md
   - caption: Part 4 - OOP
     numbered: True
     chapters:
