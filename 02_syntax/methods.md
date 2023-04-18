@@ -503,6 +503,8 @@ Now you must provide a base in order to construct a pizza:
 baseOnly = Pizza{base='thin', toppings=[]}
 </pre>
 
+### Telescoping constructors 
+
 But wait! Most (sane) people will want their pizza base to be thin. Making it mandatory to always provide a constructor argument is silly. This is where ***constructor overloading*** comes in. We provide two alternative constructors where one calls the other with default argument(s):
 
 ```java
@@ -652,7 +654,7 @@ Here are two factory methods for creating pizzas:
     }
     
     //PRIVATE
-    private void add(String addIngredient) {
+    private void addIngredient(String addIngredient) {
         this.toppings.add(ingredient);
     }
 ```

@@ -26,7 +26,6 @@ parts:
     - file: 02_syntax/methods
     - file: 02_syntax/packages_imports
     - file: 02_syntax/naming_commenting
-    - file: 02_syntax/demo_case_naming
   - caption: Part 3 - Core APIs
     numbered: True
     chapters:
