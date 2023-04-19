@@ -46,8 +46,8 @@ parts:
     - file: 04_oop/inheritance
     - file: 04_oop/enums
     - file: 04_oop/encapsulation_revisited
-    - file: 04_oop/design_rules
     - file: 04_oop/inner_classes
+    - file: 04_oop/design_rules
   - caption: Part 5 - Web Apps
     numbered: True
     chapters:
