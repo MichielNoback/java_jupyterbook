@@ -1,4 +1,4 @@
-# Sessions &amp; Scopes
+# Sessions &amp; Scopes &amp; authentication
 
 ## Introduction 
 
@@ -18,7 +18,9 @@ For real-world applications you will need to do much work on security_**
 
 ## Scopes 
 
-### Application scope: web.xml
+The scope of things in a web app can be categorized as Page, Request, Session and Application scope. These are dealt with in the sections below.
+
+## Application scope: web.xml
 
 You use application-scoped variables for everything that 
 relates to the entire application: admin email, database type and url, servlet configuration, etc.
@@ -72,7 +74,7 @@ In your Thymeleaf template, the application-scoped variable, is available like t
 th:text="${#servletContext.getInitParameter('admin_email')}"
 ```
 
-### Session scope: cross-request "memory"
+## Session scope: cross-request "memory"
 
 A server handling your request will have no memory of your visit after it is processed.
 To be able to "keep in touch" you will need to have a tracking system: we call this a session.
@@ -92,7 +94,7 @@ You will probably never create a cookie directly. You simply use this statement:
 `HttpSession session = request.getSession();`
 
 
-### Authentication
+## Authentication
 
 You do not need to have an authenticated user to create a session, but authentication is never done without using session.
 

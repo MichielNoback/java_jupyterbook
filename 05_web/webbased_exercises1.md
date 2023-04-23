@@ -1,4 +1,4 @@
-# Exercises intro
+# Web Exercises 
 
 These exercises accompany the course Web-based Information Systems. After the first exercise, we will work on a single project that we will improve and extend iteratively as new information becomes available.
 

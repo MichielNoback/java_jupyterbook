@@ -21,16 +21,15 @@ You should realise that creating a web app from scratch is something you don't d
 - **Tomcat**. I assume you have a working version of Tomcat server (see http://tomcat.apache.org/). This tutorial uses Tomcat 9.0.XX - (Tomcat 10 failed for mysterious reasons on my machine!). Simply extract the downloaded zip at a convenient location. Don't forget to make the `*.sh` scripts in the `bin` folder executable!
 - **IntelliJ Idea**. This blog uses the 2022.2.1 Ultimate version. Please refer to Jetbrains for educational licences.
 
-## The steps
 
-### Configure Tomcat as webserver
+## Configure Tomcat as webserver
 
 After extraction of Tomcat the Tomcat server application (and making the *.sh scripts executable), you’ll have to let IntelliJ know where it is. 
 You do this via `Preferences` &rarr; `Build, Execution, Deployment` &rarr; `Application Servers` &rarr; click `+` (Add) and point to the location where you extracted Tomcat.
 
 ![Configure Tomcat](figures/Configure-Tomcat.png "Configure with Tomcat")
 
-### Create a Gradle-managed web project
+## Create a Gradle-managed web project
 
 Creating a Gradle-managed web project in IntelliJ:
 
@@ -57,7 +56,7 @@ To solve the warning (if you had any), open file `gradle-wrapper.properties` und
 
 ![New Gradle project](figures/Create-Gradle-project-4.png "Create Gradle project 4")
 
-### Configure Gradle
+## Configure Gradle
 
 In this project, we’ll be using Thymeleaf and JUnit5 (and the Servlet API). Since they are not available in Java by default (i.e. not in the standard JDK), you’ll need to configure them as your projects dependencies. 
 Fortunately, Gradle is an excellent tool for dependency management. 
@@ -92,7 +91,7 @@ test {
 }
 ```
 
-### The WEB-INF folder
+## The WEB-INF folder
 
 Under `main`, create folder `webapp`, create a folder called `WEB-INF` and within that one a folder called `templates`. Within `templates`, create the html file called `welcome.html`. You can do that via context menu `New` &rarr; `Thymeleaf` or simply `New` &rarr; HTML File.
 
@@ -126,7 +125,7 @@ Much more on that stuff.
 
 Other than that, this is a plain old html file. You can open it in any browser and it will show you the non-processed view. This is what makes Thymeleaf so nice; you can develop the view of your app without using servers or template engines!
 
-### Create a resource bundle
+## Create a resource bundle
 
 A resource bundle is where you store your web page texts, if you ever want to support more than one language. Instead of creating web pages for every language you are willing to support, you create text-free web pages and store the texts for the different languages in separate files called *resource bundles*.
 
@@ -155,7 +154,7 @@ Note that in Text view (the default when no plugin is present), you can simply e
 welcome.msg=Hallo dan!
 ```
 
-### Prepare to use Thymeleaf
+## Prepare to use Thymeleaf
 
 Thymeleaf needs some configuration to get going. Here is some boilerplate code that you can simply copy-and-paste.
 
@@ -199,6 +198,12 @@ public class WebConfig {
 ```
 
 The main role of this class is to provide a **_template engine_**. This is the component of your application that is responsible for processing the Thymeleaf templates into html views. To do this, the template engine needs to know -amongst other things- where these templates are. That is the responsibility of the `TemplateResolver`. have a look at the code and try to understand what's happening.
+
+:::{warning} 
+In the course of this web tutorial the implementation of this `WebConfig` class changes. The current implementation is the simplest, but least efficient one. 
+For instance, for each and every request a new `TemplateEngine` instance is created which is something that should be avoided for non-data classes. This should preferably only be done once in the application lifecycle.  
+Later implementations make use of application lifecycle hooks to achieve this.
+:::
 
 ### Create a Servlet  
 
@@ -276,3 +281,6 @@ Go to `chrome://settings/languages` and change your language to English, refresh
 
 That’s it. It was quite some work, but this is the foundation for a nice basic Java + Thymeleaf driven web application.  
 
+:::{note}
+This seems to be such a lot of work for a simple app. But then again, how often do you create web applications from scratch?
+:::

@@ -1,8 +1,8 @@
-# A simple web service using Ajax
+# Serving data using Ajax
 
 ## Introduction
 
-Modern web applications are often composed of a "main" backend controller serving the view and "helper" 
+Many web applications are composed of a "main" backend controller serving the view and "helper" 
 backend controllers serving only data for (updating) parts of the view. 
 Many web apps have even taken this further; the backend only serves an initial view and is mainly responsible for serving data packages. The Javascript library Vue.js is a good example of this.
 

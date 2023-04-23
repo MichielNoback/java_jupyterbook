@@ -14,7 +14,10 @@ For a complete overview you should refer to [the official docs](https://www.thym
 
 ## Expression types
 
-### Resource expressions: `#{}`
+There are quite a few different types of expressions: resource expressions with `#{}`, variable expressions with `${}`, built-in variables with `${#<builtin>}`, local-scoped objects with `*{}`, links with `@{}` and inline expressions with `[[${expr}]]`.  
+These are discussed in the following sections.
+
+## Resource expressions: `#{}`
 
 Using the `#{message.in.resource.bundle}` expression will make the template engine look in your resource bundle(s) for internationalized messages with the given key. In its most basic form it works as follows.
 This expression: 
@@ -35,7 +38,7 @@ will evaluate to
 <h3>get your phrase-of-the-day</h3>
 ```
 
-#### Unescaped text
+### Unescaped text
 
 The Thymeleaf attribute `th:text` ‘escapes’ the text in the message. If you want this message: 
 
@@ -61,7 +64,7 @@ Instead of this
 <p>Thymeleaf is my &lt;b&gt;favourite&lt;/b&gt; templating engine!</p>
 ```
 
-#### Messages with variables
+### Messages with variables
 
 To insert variables into your messages, give the message identifier an argument, just like calling a function. Then, in the message "body", catch it with {0}.
 
@@ -87,7 +90,7 @@ will process into
 
 Of course, you should use Use {1}, {2} ... for multiple variables.
 
-### Variable expressions: `${}`
+## Variable expressions: `${}`
 
 Variables expressions is completely different from messages with variables - the previous section!
 
@@ -120,7 +123,7 @@ will evaluate to
 
 Thus, the `warning` attribute that was set on the `WebContext` object has been retrieved in the Thymeleaf template using the `${warning}` expression.
 
-#### Using Java bean properties in expressions
+### Using Java bean properties in expressions
 
 A Java bean is a special kind of class, coded according to a set of rules. That’s why you can use them so conveniently in Thymeleaf, without actually writing Java code.
 
@@ -172,7 +175,7 @@ will give the processed html
 <span>The person currently logged in is Judy Steinberg</span>
 ```
 
-#### Flexibility of `${}`
+### Flexibility of `${}`
 
 The `${}` expression can be used in many ways; here are only a few:
 - Chaining of calls: **`${object.property.property}`**
@@ -185,7 +188,7 @@ The `${}` expression can be used in many ways; here are only a few:
     <h4 th:text="#{'phrase.' + ${phrase_type} + '.' + ${phrase_num}}">_phrase_</h4>
     ```
 
-### Built-in-variable expressions: `${#}`
+## Built-in-variable expressions: `${#}`
 
 Thymeleaf provides quite a few predefined variables that can be accessed using `${#variableName}` syntax. Here are some:
 
@@ -197,7 +200,7 @@ Thymeleaf provides quite a few predefined variables that can be accessed using `
 `#numbers`|utility methods for formatting numeric objects.
 `#strings`|(or `#objects`, `#bools`, `#arrays`, `#lists`, `#sets`: utility methods for these objects
 
-#### Locales
+### Locales
 
 The '#locale' helper can do things like this:
 
@@ -205,7 +208,7 @@ Get the Language set on the clients' browser: `${#locale.getLanguage()}` will gi
 Get the Country set on the clients' browser; it will be empty when not set: `${#locale.getCountry()}` will give `<nothing>` on my browser.   
 Get the display name of your locale set on your browser: `${#locale.getDisplayName()}` : `Dutch`
 
-#### Dates and Calendars
+### Dates and Calendars
 
 The '#dates' and '#calendars' variables help with everything related to dates.  
 
@@ -218,7 +221,7 @@ Here are some examples, with `my_date`, a `java.util.Date` object, set on the we
 `${#dates.format(my_date, 'yyyy/mm/dd HH:mm')}`|advanced date formatting using format string|2019/52/03 15:52
 `${#dates.formatISO(my_date)}`|ISO format|2019-06-03T15:52:03.981+02:00
 
-#### Numbers
+### Numbers
 
 The '#numbers' implicit object helps with numbers. 
 Given 'my_date' set on the web context model: `ctx.setVariable("my_number", 31415.9265359);`, here is simple usage scenarios.
@@ -231,7 +234,7 @@ The argument are as follows:
 
 Similarly, this expression `${#numbers.formatInteger(my_number, 10, 'POINT')}` will produce "0.000.031.416".
 
-#### The session object
+### The session object
 
 The session object is simply available as `session`.
 The expression `${session.user.email}` will display the 'email' property of the User object registered as attribute on the 'session' object: `session.setAttribute("user", new User("Henk", "henk@example.com", Role.USER));` will give
@@ -239,7 +242,7 @@ The expression `${session.user.email}` will display the 'email' property of the 
 
 The details of sessions are the topic of a separate post, however.
 
-### Locally scoped variables with `*{}`
+## Locally scoped variables with `*{}`
 
 You can access the properties of a locally scoped object through the `*{}` syntax. This obviates the need for retyping the variable name over and over again.  
 
@@ -262,7 +265,7 @@ Which will produce
 </ul>
 ```
 
-### Creating links: `@{}`
+## Creating links: `@{}`
 
 Using the `@{}` syntax, you can create links with a path that is relative to the **_deployment context_**.
 ```html
@@ -273,7 +276,7 @@ will give the following link: http://localhost:8080/give.phrase?phrase_category=
 
 As you can see, you can add a request parameter as key=value pair. For multiple key=value pairs, separate them by comma's: `@{/give.phrase(phrase_category=bullshit,action=nothing)}` gives http://localhost:8080/give.phrase?phrase_category=bullshit&action=nothing
 
-### html tag attributes you can access
+## html tag attributes you can access
 
 You have seen Thymeleaf targeting the "text" attribute a lot now, using `th:text`. But there are many many more. Have a look at the Thymeleaf docs for a complete listing.
 Here are the main ones:
@@ -321,7 +324,7 @@ produce this html
 </select>
 ```
 
-### Inline expressions
+## Inline expressions
 
 Sometimes, it is not desirable to have your variables expressed within tag attributes. Instead, you want raw (html) text. This is especially the case with Javascript, when "injecting" variable values. Here is its main usage scenario:
 

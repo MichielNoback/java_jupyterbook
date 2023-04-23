@@ -106,7 +106,7 @@ ctx.setVariable("movies", Movie.getAllMovies());
 so for all examples the `$movies` variable is available.
 
 
-### Iteration
+## Iteration
 
 Iteration with Thymeleaf is as simple as in Java code; simply use `th:each`.
 This is an example with the movies list: 
@@ -333,7 +333,7 @@ Let's dissect.
 
 First there is the iteration initialization where an `it_stat` object is requested as well: `th:each="movie, it_stat:${movies}"`. In the second part, a nested ternary statement sets the `class` attribute of the current row. The first level determines the first row: `th:class="${it_stat.first} ? 'first' : (<nested ternary>)"`. The nested ternary determines the class of all rows except the first: `${it_stat.even} ? 'even' : 'odd'`.
 
-### Conditionals: if (and th:block)
+## Conditionals: if (and th:block)
 
 Besides the ternary operator structure shown in the previous section, regular "if" tests can be applied. Here is a test for the rating of the movie; only movies with a rating higher than 9 are displayed:
 
@@ -368,7 +368,7 @@ This makes an if/else-like structure possible. Here, you see it in combination w
 ```
 
 
-### Conditionals: switch
+## Conditionals: switch
 
 Here you see a combination of iteration and switch/case to build an ordered list. 
 

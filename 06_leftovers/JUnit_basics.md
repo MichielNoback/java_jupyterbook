@@ -130,7 +130,7 @@ repositories {
 
 dependencies {
     testCompile(
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
     //for parameterized tests
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.5.2'
@@ -138,7 +138,7 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.13.2'
 }
 
-//in some cases you need to put this in to get it running (I am not sure why...)
+// this tells IntelliJ you wish to use the JUnit platform to run the tests
 test {
     useJUnitPlatform()
 }
@@ -379,15 +379,16 @@ Please refer to the docs for more detail: [https://junit.org/junit5/docs/current
 
 The method `assertThrows(Class<? extends Throwable> expectedType, Executable executable)`
 in JUnit5 is used to assert that the supplied **_executable_** will throw an exception of the expected type. 
-It relies on lambdas, which of course were not discussed yet. However, looking at the example below you can probably figure out how to do it for your method to be tested.
+It relies on lambdas, which were not discussed in {doc}`/03_apis/functional_programming`. 
 
 ```java
 @Test
 void shouldThrowException() {
     Throwable exception = assertThrows(
-        IllegalArgumentException.class, /*expects an IllegalArgumentException.class instance*/
-        () -> TextUtils.getLongestWord(null)); /*will call getLongestWord as tested method*/
-    /*this uses a regular assertTrue test to check for the exception message*/
+        IllegalArgumentException.class,        // expects an IllegalArgumentException.class instance
+        () -> TextUtils.getLongestWord(null)); // will call getLongestWord as tested method
+
+    // this uses a regular assertTrue test to check for the exception message
     assertEquals(exception.getMessage(), "text cannot be null");
 }
 ```
@@ -481,3 +482,9 @@ You can even nest them within code blocks:
     }
 
 ```
+
+:::{admonition} Design rules
+- Have a Test case (a @Test method) test only a single type of use; keep the number of assertions small
+- Always create tests for Sunny Day and Boundary case scenarios.
+- Don't be afraid to split up production methods if you find out that the tests become too complicated
+:::

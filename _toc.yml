@@ -62,8 +62,8 @@ parts:
     - file: 05_web/databases
     - file: 05_web/ajax
     - file: 05_web/filters_upload
-    - file: 05_web/webbased_exercises1
     - file: 05_web/html_cheatsheet
+    - file: 05_web/webbased_exercises1
   - caption: Part 6 - Leftovers
     numbered: True
     chapters:
