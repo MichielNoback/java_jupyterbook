@@ -16,6 +16,7 @@ parts:
     - file: 01_getting_started/essentials
     - file: 01_getting_started/basic_program_design
     - file: 01_getting_started/objects_and_classes
+
   - caption: Part 2 - Syntax
     numbered: True
     chapters:
@@ -26,6 +27,7 @@ parts:
     - file: 02_syntax/methods
     - file: 02_syntax/packages_imports
     - file: 02_syntax/naming_commenting
+
   - caption: Part 3 - Core APIs
     numbered: True
     chapters:
@@ -38,6 +40,7 @@ parts:
     - file: 03_apis/io
     - file: 03_apis/regex
     - file: 03_apis/functional_programming.md
+
   - caption: Part 4 - OOP
     numbered: True
     chapters:
@@ -48,29 +51,24 @@ parts:
     - file: 04_oop/encapsulation_revisited
     - file: 04_oop/inner_classes
     - file: 04_oop/design_rules
-  - caption: Part 5 - Web Apps
+    - file: 04_oop/UML
+    - file: 04_oop/demo_case_refactoring
+
+  - caption: Part 5 - Testing & Advanced APIs
     numbered: True
     chapters:
-    - file: 05_web/refresher
-    - file: 05_web/toolbox
-    - file: 05_web/first_project
-    - file: 05_web/mvc
-    - file: 05_web/thymeleaf_expressions
-    - file: 05_web/thymeleaf_flow_control
-    - file: 05_web/sessions
-    - file: 05_web/servlet_details
-    - file: 05_web/databases
-    - file: 05_web/ajax
-    - file: 05_web/filters_upload
-    - file: 05_web/html_cheatsheet
-    - file: 05_web/webbased_exercises1
-  - caption: Part 6 - Leftovers
+    - file: 05_adv_apis/JUnit_basics
+    - file: 05_adv_apis/JUnit_advanced
+    - file: 05_adv_apis/functional_programming
+    - file: 05_adv_apis/streams
+    - file: 05_adv_apis/basic_multithreading
+
+
+  - caption: Part 6 - Design Patterns
     numbered: True
     chapters:
-    - file: 06_leftovers/JUnit_basics
-    - file: 06_leftovers/JUnit_advanced
-    - file: 06_leftovers/UML
-    - file: 06_leftovers/demo_case_refactoring
+    - file: 06_design_patterns/design_patterns_intro
+
   - caption: Part 7 - Spring (Boot)
     numbered: True
     chapters:
@@ -78,8 +76,21 @@ parts:
     - file: 07_spring/Dependency_injection
     - file: 07_spring/spring_annotations
 
-
-
-
+  - caption: Part 8 - Web Apps
+    numbered: True
+    chapters:
+    - file: 08_web/refresher
+    - file: 08_web/toolbox
+    - file: 08_web/first_project
+    - file: 08_web/mvc
+    - file: 08_web/thymeleaf_expressions
+    - file: 08_web/thymeleaf_flow_control
+    - file: 08_web/sessions
+    - file: 08_web/servlet_details
+    - file: 08_web/databases
+    - file: 08_web/ajax
+    - file: 08_web/filters_upload
+    - file: 08_web/html_cheatsheet
+    - file: 08_web/webbased_exercises1
 
 
