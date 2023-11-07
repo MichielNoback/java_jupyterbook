@@ -1,3 +1,3 @@
-# Design Patterns
+# The Streams API
 
 

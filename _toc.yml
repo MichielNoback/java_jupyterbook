@@ -62,8 +62,8 @@ parts:
     - file: 05_adv_apis/functional_programming
     - file: 05_adv_apis/streams
     - file: 05_adv_apis/basic_multithreading
-
-
+    - file: 05_adv_apis/advanced_multithreading
+    
   - caption: Part 6 - Design Patterns
     numbered: True
     chapters:
