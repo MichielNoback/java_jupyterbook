@@ -65,9 +65,9 @@ map.put("a", 1);
 map.put("b", 2);
 map.put("c", 3);
 
-map.keySet().stream().forEach(System.out::println);
-map.values().stream().forEach(System.out::println);
-map.entrySet().stream().forEach(System.out::println);
+map.keySet().stream().forEach(n -> System.out.println(n));
+map.values().stream().forEach(n -> System.out.println(n));
+map.entrySet().stream().forEach(n -> System.out.println(n));
 ```
 
 Arrays have a diverse way of streaming numbers for common use cases. This most generic is this one:
@@ -96,7 +96,7 @@ try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
         stream
                 .map(l -> l.replace(',', ';'))
                 .limit(4)
-                .forEach(System.out::println);
+                .forEach(n -> System.out.println(n));
 } catch (IOException e) {
         e.printStackTrace();
 }
@@ -163,13 +163,7 @@ gives (on my computer):
 6
 </pre>
 
-## Intermediate stream operations
-
-Intermediate operations are operations that produce a new Stream of values. These values can be of the same type (with `filter()` or `peek()`), but they can also be of another type, as with `map()` and `mapToObj()`.
-
-First we'll look at streaming characters because this makes it possible to show some examples with biological sequences.
-
-### Streaming characters from a String
+## Streaming characters from a String
 
 In bioinformatics, working with the individual characters of a DNA, RNA or protein sequence is a very common task. However, if you stream them in the obvious way, you will get numbers:
 
@@ -196,6 +190,13 @@ s.chars()
 
 Note that this uses `mapToObj()` instead of `map()`. This is because an `IntStream` is a stream of primitive values.
 
+
+
+## Intermediate stream operations
+
+Intermediate operations are operations that produce a new Stream of values. These values can be of the same type (with `filter()` or `peek()`), but they can also be of another type, as with `map()` and `mapToObj()`.
+
+First we'll look at streaming characters because this makes it possible to show some examples with biological sequences.
 
 ### Intermediate operations: `peek()`
 
@@ -304,7 +305,7 @@ in IntelliJ Idea, it suggests "Lambda can be replaced with method reference ". W
 System.out::println
 ```
 
-This expression is an example of a **Method reference". It usually has the structure `<class or object>::<function name>`.
+This expression is an example of a **Method reference**. It usually has the structure `<class or object>::<function name>`.
 
 The function can be static or instance-bound.
 
@@ -359,8 +360,76 @@ These terminations can be categorized into
 
 1. One operation per value
 2. Collecting values into a collection (List, Map, Set) 
-3. Reducing to a single value
+3. Grouping values (a special case of collecting)
+4. Reducing to a single value
 
+### One operation per value
+
+We have seen many examples of this already: the `foreach()` function.
+This operation does not return anything. It simply ends the journey of that value.
+
+### Collecting (grouped) values
+
+We'll keep things simple here. The most common use cases are collecting values into a List, Set or Map. Of these, the Map is the most versatile (and difficult to master).
+
+Below are two examples for lists and sets.
+
+
+```java
+System.out.println(Stream.of("a", "b", "c", "a", "c", "d", "a")
+        .map(s -> s.toUpperCase())
+        .toList()); //shortcut for .collect(Collectors.toList())
+
+System.out.println(Stream.of("a", "b", "c", "a", "c", "d", "a")
+        .map(s -> s.toUpperCase())
+        .collect(Collectors.toSet()));
+```
+
+Now for maps. A map needs keys and values.
+Only some basic use cases will be demonstrated here. Let's start with the simplest: grouping by some property into a Map of Lists. Given this simple record class:
+
+```java
+record Employee (String name, String role) {
+    @Override
+    public String toString(){
+        return name + "(" + role + ")";
+    }
+}
+```
+
+We could stream and group these objects like this:
+
+```java
+List<Employee> employees = List.of(
+        new Employee("John", "Developer"),
+        new Employee("Jane", "Developer"),
+        new Employee("Jack", "Tester"),
+        new Employee("Jill", "Tester"),
+        new Employee("Jack", "Manager")
+);
+
+Map<String, List<Employee>> grouped = employees
+    .stream()
+    .collect(groupingBy(Employee::role));
+System.out.println(grouped);
+```
+<pre class="console_out">
+{Tester=[Jack(Tester), Jill(Tester)], Developer=[John(Developer), Jane(Developer)], Manager=[Jack(Manager)]}
+</pre>
+
+
+A slightly more challenging task is counting occurrences.
+
+```java
+System.out.println(Stream.of("a", "b", "c", "a", "c", "d", "a")
+        .map(s -> s.toUpperCase())
+        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
+```
+<pre class="console_out">
+{A=3, B=1, C=2, D=1}
+</pre>
+
+The `groupingBy()` function needs a function that will generate the key and a function that does some downstream processing step (like counting). 
 
 
 ### Reductions
@@ -381,6 +450,3 @@ The names are self-explanatory.
 
 
 
-<pre class="console_out">
-SimpleWorker 'My First Worker' doing my thing
-</pre>
