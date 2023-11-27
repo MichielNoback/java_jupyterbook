@@ -101,6 +101,9 @@ Test Driven Development (TDD) is today’s standard in software development.
 If you introduce new features, a solid test suite protects you against regression in existing code
 
 The approach we’ll take in this course is hand-in-hand development of test and production code. This is one school. 
+
+![red_green_refactor.webp](figures/red_green_refactor.webp)
+
 The other believes that all test code should be written before any production code.
 
 These are the three main reasons for spending time and resources to create and run tests.

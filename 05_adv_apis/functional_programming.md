@@ -144,7 +144,14 @@ If a single parameter is defined, the parentheses are optional. On the other han
 
 2. **The arrow `->`**. This is an essential part. Without it there is no lambda.
 
-3. **The body**. The body only needs braces `{}` when multiple statements are included. When a single expression is present, the result of that expression is the return value. Otherwise, an explicit `return` statement is required when a return value is needed (i.e. no `void` type). 
+3. **The body**. The body only needs braces `{}` when multiple statements are included. When a single expression is present, the result of that expression is the return value. Otherwise, an explicit `return` statement is required when a return value is needed (i.e. no `void` type). So, this is a valid lambda:
+    ```java
+    (n -> {
+        n = (int)(n * 10 * Math.random());
+        return n % 2 == 0;
+    })
+    ```
+
 
 ### Package `java.util.function`
 
