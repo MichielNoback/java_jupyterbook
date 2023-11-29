@@ -32,7 +32,38 @@ sum = 56
 </pre>
 
 As you can see, it is possible to build a whole workflow in just a single statement. 
-Optionals will be discussed later. It is like a container that may or may not hold a value.
+
+## Optionals
+Many terminal operations produce `Optional`. It is like a container that may or may not hold a value. The purpose of the `Optional` class is to provide a "type-level solution" for representing optional values instead of null references.
+
+Here are some common operations:
+
+```java
+String name = "Mike";
+Optional<String> opt = Optional.of(name);
+/* Alternative: opt = Optional.ofNullable(name);*/
+System.out.println(opt.isPresent());
+System.out.println(opt.get());
+opt.ifPresent(n -> System.out.println(n));
+System.out.println(opt.orElseGet(/*a Supplier for when no value is present*/() -> "John Doe"));
+
+opt = Optional.empty();
+System.out.println(opt.orElseGet(() -> "John Doe"));
+opt.ifPresentOrElse(
+        /*a Consumer: what to do if present*/ n -> System.out.println(n),
+        /*a Runnable: what to do if NOT present*/ () -> System.out.println("John Doe"));
+```
+<pre class="console_out">
+true
+Mike
+Mike
+Mike
+John Doe
+John Doe
+</pre>
+
+Have a look at [Baeldung](https://www.baeldung.com/java-optional) for a more in-depth discussion.
+
 
 ## Stream creation
 
@@ -431,11 +462,54 @@ System.out.println(Stream.of("a", "b", "c", "a", "c", "d", "a")
 
 The `groupingBy()` function needs a function that will generate the key and a function that does some downstream processing step (like counting). 
 
+Here is another example, grouping by string length and collecting into lists:
+
+```java
+System.out.println(Stream.of("abc", "ca", "cd", "aaa", "bab")
+        .collect(Collectors.groupingBy(String::length, Collectors.toList())));
+        //x -> x.length() works as well instead of String::length
+```
+<pre class="console_out">
+{2=[ca, cd], 3=[abc, aaa, bab]}
+</pre>
 
 ### Reductions
 
+The general form of reductions is that values are sequentially processed into a single result.
+Here is an example.
 
-The `IntStream` and other number streams have several methods at your disposal for this purpose:  
+```java
+List<Integer> numbers = List.of(1, 2, 3, 4, 5);
+Integer prod = numbers.stream().reduce(1, (a, b) -> a * b);
+System.out.println("cumulative prod=" + prod);
+```
+<pre class="console_out">
+cumulative prod=120
+</pre>
+
+The `reduce()` function is seeded with a start value, and all values are (in this case) multiplied with the result of the previous reduction. So, in the above example, the seed value 1 i multiplied by 2 (giving 2) and this is multiplied by 3 (giving 6) and the next values are 24 and 120 which is the final outcome.
+
+When working with non-number values, you don't have the seed value:
+
+```java
+Stream.of("a", "b", "c", "d", "e")
+        .reduce((a, b) -> a + '-' + b)
+        .ifPresent(System.out::println);
+```
+<pre class="console_out">
+a-b-c-d-e
+</pre>
+
+
+Since concatenating strings is a thing that is often done, there is a shortcut:
+
+```java
+List<String> strings = List.of("a", "b", "c", "d", "e");
+String concat = strings.stream().collect(Collectors.joining(","));
+System.out.println(concat);
+```
+
+For numeric reductions the `IntStream` and other number streams have several methods at your disposal:  
 
 - **`count()`**
 - **`sum()`**
@@ -444,9 +518,4 @@ The `IntStream` and other number streams have several methods at your disposal f
 - **`distinct()`**
 
 The names are self-explanatory.
-
-
-
-
-
 
