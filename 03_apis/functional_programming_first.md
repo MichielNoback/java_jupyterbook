@@ -1,7 +1,8 @@
-# Functional programming 
+# Functional programming intro
 
 :::{note} 
 This is an optional chapter; you can achieve everything without, but it may be (a lot) more verbose.
+In a later chapter (Part 5 - Testing & Advanced APIs) this subject will be discussed in much more detail.
 :::
 
 ## Lambdas implement interfaces
