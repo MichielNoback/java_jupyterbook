@@ -64,10 +64,12 @@ parts:
     - file: 05_adv_apis/basic_multithreading
     - file: 05_adv_apis/advanced_multithreading
     
-  - caption: Part 6 - Design Patterns
+  - caption: Part 6 - Design
     numbered: True
     chapters:
-    - file: 06_design_patterns/design_patterns_intro
+    - file: 06_design/clean_code
+    - file: 06_design/solid
+    - file: 06_design/design_patterns_intro
 
   - caption: Part 7 - Spring (Boot)
     numbered: True

@@ -10,11 +10,12 @@ The topics are:
 - sessions
 - overview of the different scopes and when to use which
 
-<img style="float: left; margin: 10px;" src="figures/warning_64.png">
+<!-- <img style="float: left; margin: 10px;" src="figures/warning_64.png"> -->
 
-**DISCLAIMER  
-_Everything in this presentation related to authentication is purely for the purpose of showing principles.
-For real-world applications you will need to do much work on security_**
+:::{admonition} Disclaimer 
+:class: warning
+**Everything in this presentation related to authentication is purely for the purpose of showing principles. For real-world applications you will need to do much work on security.**
+:::
 
 ## Scopes 
 
@@ -140,11 +141,12 @@ and it looks like this in the browser:
 
 ![Login form 1](figures/login_form1s.png)
 
-<img style="float: left; margin: 10px;" src="figures/warning_64.png">
-
+<!-- <img style="float: left; margin: 10px;" src="figures/warning_64.png"> -->
+:::{warning}
 **Actually, when you see a `http://` protocol instead of an `https://` protocol in the location bar of your browser, you do NOT have safety on you connection, even though you cannot see the password in the form!**
 
 But that issue is not within the scope of this course.
+:::
 
 ### Login servlet
 
