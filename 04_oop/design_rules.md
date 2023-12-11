@@ -37,7 +37,7 @@ Use interfaces and abstract classes as the declared type of your variables. That
 - They do one thing only (SRP!)
 - They preferably define no more than 2 or 3 parameters. This keeps testing at an acceptable level of difficulty.
 
-:::warning
+:::{warning}
 **KEEP METHODS TESTABLE**
 :::
 

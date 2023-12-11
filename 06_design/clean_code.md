@@ -1,4 +1,4 @@
-# Clean Code principles
+# General coding principles
 
 ## General
 

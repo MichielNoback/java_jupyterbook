@@ -1,4 +1,4 @@
-# Interfaces
+# Interfaces & Abstract Classes
 
 So far, you have seen two basic types: primitives and classes. Classes have instance variables and methods acting on these. Here is an example.
 
@@ -36,7 +36,9 @@ public class Sequence {
 
 So the **_contract_** (or API, if you like) of class Sequence is that it can deliver its molecular weight and can generate a mutated copy of itself. Both are **_concrete_** methods that are implemented with a method body. 
 
-Sometimes, however, you want to **_separate the contract from its implementation._**
+Sometimes, however, you want to **_(partially) separate the contract from its implementation._**
+
+In Java, we have two separate constructs at our disposal for this. The first is te **_interface_** and the second is the **_abstract class_**. Both have their specific uses and disadvantages and these will be discussed below. 
 
 
 ## A contract without implementation: interface
@@ -56,6 +58,14 @@ supports all possible ways to write data, now and in the future.
 
 The solution is to define a **_contract without implementation_**, separating the contract from the implementation. Classes interested in fulfilling the contract can sign up and define their own implementation, as long as the contract is followed to the letter. In Java, these contracts are called **_interfaces_**. Staying with the Python print() function, we would have to define a contract (interface) defining a "write" method that states "give me your object and I will write it (to a destination of my choice)":
 
+:::{admonition} Definition
+:class: info
+
+An interface is a class definition with only abstract methods - they have no method body.  
+Interfaces usually define some _behaviour_ that can be added to existing classes.  
+
+_(Since Java 8, default implementations and static methods are also allowed. These are methods that _do_ have an implementation, but these can never be dependent on any instance variables.)_
+:::
 
 Why is this useful? Let's move away from simple printing a bit. Suppose we have a `SequenceCollection` class that 
 exposes a `flush()` method, that is supposed to write the held collection 
@@ -240,7 +250,138 @@ creates a file on my Desktop with this contents:
 ![File cretaed](figures/finished_sequences_file.png)
 
 
-## Summary
+## Abstract classes
+
+The second place where you can find abstract methods is in abstract classes. These are regular classes that are marked with the `abstract` keyword. The consequence of this is that they can not be instantiated directly; only _concrete_ subclasses can be instantiated.
+
+:::{admonition} Definition
+:class: info
+
+An abstract class is a class hat is marked with the `abstract` keyword.  
+It cannot be instantiated; only classes derived from it (i.e. subclasses) can be instantiated.
+An abstract class may have abstract methods, but this is not required.  
+:::
+
+A major difference between abstract classes and interfaces is that classes can implement many interfaces, but can extend only a single one; Java does not allow multiple inheritance.
+
+To stick with sequences, here is an example of typical usage of an abstract base class. 
+
+```java
+abstract class NucleicAcidSequence{
+    protected String sequence;
+    protected String name;
+
+    public NucleicAcidSequence(String sequence, String name) {
+        this.sequence = sequence;
+        this.name = name;
+    }
+
+    //getters omitted
+    //no setters provided!
+
+    public abstract char getComplementCharacter(char c);
+
+    public DNASequence complement() {
+        StringBuilder newSequence = new StringBuilder();
+        for (int i = 0; i < sequence.length(); i++) {
+            newSequence.append(getComplementCharacter(sequence.charAt(i)));
+        }
+        return new DNASequence(newSequence.toString(), name);
+    }
+
+    public NucleicAcidSequence reverse() {
+        String newSeq = new StringBuilder(sequence).reverse().toString();
+        if (this instanceof DNASequence)
+            return new DNASequence(newSeq, name);
+        else if (this instanceof RNASequence)
+            return new RNASequence(newSeq, name);
+        else
+            throw new IllegalArgumentException("Unknown sequence type");
+    }
+
+    public NucleicAcidSequence reverseComplement(){
+        return complement().reverse();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " (" + name + "): " + sequence;
+    }
+}
+```
+
+Class `NucleicAcidSequence` is completely implemented except for one detail that needs to be implemented by its subclasses, DNA and RNA: `public abstract char getComplementCharacter(char c);`. Since this class defines an abstract method, it is required to be declared abstract itself.  
+
+Note this solution for `reverse()` is not general-purpose; you will need introspection for a more sophisticated solution. I chose this approach to enable chaining of method calls: `complement().reverse()`
+
+Now, whenever a concrete (i.e. non-abstract) derived class (subclass) is defined, it _must_ also implement (Override) this abstract method. Here is the `DNASequence` class:
+
+```java
+class DNASequence extends NucleicAcidSequence{
+    static Map<Character, Character> complements = new HashMap<>();
+    static {
+        complements.put('A', 'T');
+        complements.put('T', 'A');
+        complements.put('C', 'G');
+        complements.put('G', 'C');
+    }
+    public DNASequence(String sequence, String name) {
+        super(sequence, name);
+    }
+
+    @Override
+    public char getComplementCharacter(char c) {
+        return complements.get(c);
+    }
+}
+```
+
+Now, whenever you try this:
+
+```java
+NucleicAcidSequence nas = new NucleicAcidSequence("ATCG", "generic sequence");
+```
+You get the compile error `'NucleicAcidSequence' is abstract; cannot be instantiated`.
+
+Here is some demo test code:
+
+```java
+@Test
+void testSequenceCreation() {
+    DNASequence dna = new DNASequence("GAATACCAGAT", "dna");
+    System.out.println(dna.complement().reverse());
+    System.out.println(dna.reverseComplement());
+}
+```
+<pre class="console_out">
+DNASequence (dna): ATCTGGTATTC
+DNASequence (dna): ATCTGGTATTC
+</pre>
+
+## These are the key players in Polymorphism
+
+Polymorphism is a term that comes from biology. It means "taking many forms".
+In object-oriented design, it is used to refer to the fact that implementers of interfaces, or extensions of (abstract) classes can show different behaviours with the same contract. You have seen it at work with the `SequenceWriter` interface that has two very sidtinct ways of being implemented, while the method call and reference type is exactly the same:
+
+```java
+seq = new Sequence();
+seq.name = "harmless";
+seq.sequence = "GATAACAGCATAGCAAG";
+
+SequenceWriter writer1 = new NoStorageSequenceWriter();
+SequenceWriter writer2 = new FileStorageSequenceWriter();
+
+List<SequenceWriter> writers = List.of(writer1, writer2);
+for (SequenceWriter writer : writers) {
+    writer.store(seq); //two very different behaviours under the same contract
+}
+```
+
+:::{admonition} Definition
+:class: info
+
+Polymorphism is the use of a single symbol to represent multiple different types
+:::
 
 Interfaces make it possible to define a contract or API in a way that makes it possible to deal with an object as _being of the contract type_, without knowing its implementation, and without using inheritance.  
 

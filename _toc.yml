@@ -31,7 +31,7 @@ parts:
   - caption: Part 3 - Core APIs
     numbered: True
     chapters:
-    - file: 03_apis/interfaces
+    - file: 03_apis/interfaces_abstract_classes
     - file: 03_apis/collections
     - file: 03_apis/class_object_methods
     - file: 03_apis/records
@@ -68,7 +68,7 @@ parts:
     numbered: True
     chapters:
     - file: 06_design/clean_code
-    - file: 06_design/solid
+    - file: 06_design/oop_concepts
     - file: 06_design/design_patterns_intro
 
   - caption: Part 7 - Spring (Boot)

@@ -382,7 +382,7 @@ Please refer to the docs for more detail: [https://junit.org/junit5/docs/current
 
 The method `assertThrows(Class<? extends Throwable> expectedType, Executable executable)`
 in JUnit5 is used to assert that the supplied **_executable_** will throw an exception of the expected type. 
-It relies on lambdas, which were not discussed in {doc}`/03_apis/functional_programming`. 
+It relies on lambdas, which were not discussed in {doc}`/03_apis/functional_programming_first`. 
 
 ```java
 @Test
