@@ -51,7 +51,6 @@ parts:
     - file: 04_oop/encapsulation_revisited
     - file: 04_oop/inner_classes
     - file: 04_oop/design_rules
-    - file: 04_oop/UML
     - file: 04_oop/demo_case_refactoring
 
   - caption: Part 5 - Testing & Advanced APIs
@@ -68,8 +67,10 @@ parts:
     numbered: True
     chapters:
     - file: 06_design/clean_code
-    - file: 06_design/oop_concepts
-    - file: 06_design/design_patterns_intro
+    - file: 06_design/UML
+    - file: 06_design/design_patterns_behavioural
+    - file: 06_design/design_patterns_creational
+    - file: 06_design/design_patterns_structural
 
   - caption: Part 7 - Spring (Boot)
     numbered: True
