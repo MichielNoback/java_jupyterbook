@@ -14,7 +14,19 @@ Although plain filtering of objects has been greatly simplified with the introdu
 this pattern still has uses for all slightly more complicated cases.
 
 
+### Revisiting the Factory pattern
 
+Building composite filter objects for 
+
+- Probe filtering for microarray  
+- Primer filtering for qPCR  
+
+This will involve complex construction that can be abstracted away in an Abstract Factory Class, subtype of FilterFactory:
+
+- MicroarrayProbeFilterFactory
+- PcrPrimerFilterFactory
+
+Can you implement this model as a Factory class?
 
 
 ## Decorator
