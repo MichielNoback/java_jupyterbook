@@ -50,7 +50,7 @@ dependencies {
 }
 ```
 
-So, let's dive right into the PalindromeFinder app code. 
+So, let's dive right into the PalindromeFinder app code. Details will be discussed below.
 
 ```java
 package nl.bioinf;
@@ -151,7 +151,7 @@ lepel is a palindrome
 legovogel is a palindrome
 </pre>
 
-Below is a walk-through of all relevant elements, starting with 
+Below is a walk-through of all relevant elements, starting with `@Command`.
 
 ```java
 @Command(name = "PalindromeFinder", version = "PalindromeFinder 0.0.1", mixinStandardHelpOptions = true)
@@ -182,4 +182,71 @@ public class PalindromeFinder implements Runnable {
 
 Interface Runnable is part of the Java multithreading API, and it defines a single method: `run()`.  
 Where will this method be called? By PicoCLI class `CommandLine`!  
+
+What this expression `new CommandLine(new PalindromeFinder()).execute(args);` does (or causes) is  
+
+1. instantiate a PalindromeFinder object,  
+2. submit it to a CommandLine instance and have it execute().  
+3. The CommandLine instance parses and verifies the provided `args` String array according to the annotations placed on the instance variable fields (discussed below).   
+4. Once found correct, the argument values are **_injected_** into the instance fields and -finally- 
+5. the `run()` method of PalindromeFinder is called.
+
+
+Now for the actual Options and Parameters. As you can see, we have two basic types: `@Option` and `@Parameter`.  
+The Option annotation can be used for options with and without (a.k.a. Flag) values attached.  
+
+For example, this is an option with value:
+
+```java
+    @Option(names = {"-m", "--min"},
+            description = "Minimum length of palindrome",
+            required = true)
+    private int minimumLength;
+```
+It will be used as `-m <int>` or `--min <int>`. 
+
+Flags on the other hand are always associated with boolean values, and by default they are turned off. 
+Here, for clarity's sake, the default value is specified as well.
+
+
+```java
+    @Option(names = {"-i", "--ignore-case"},
+            description = "Ignore case when checking for palindromes",
+            defaultValue = "false")
+    private boolean ignoreCase;
+```
+
+This flag can be turned on by adding `-i` or `--ignore-case` to the command: the `ignoreCase` variable will be `true`.  
+
+Lastly, here is the `@Parameters` annotation. It is not a multiple by accident.  
+In this example it says: there can be zero to many values that will be parsed into the `words` array. 
+In the help output it is displayed with ellipsis, the symbol for varargs.
+
+```java
+    @Parameters(arity = "0..*", paramLabel = "WORD", description = "Words to check for palindromicity")
+    private String[] words;
+```
+
+### Passing wrong values for options
+
+When you pass wrong, or too few values, you get a variety of error messages. Here is an example:
+
+<pre class="console_out">
+~$ java -jar PalindromeFinder -m foo --ignore-case pap poes lepel legovogel
+Invalid value for option '--min': 'foo' is not an int
+Usage: PalindromeFinder [-hiV] [-f=&lt;filename&gt;] -m=&lt;minimumLength&gt; [WORD...]
+      [WORD...]           Words to check for palindromicity
+  -f, --file=&lt;filename&gt;   Input file with words
+  -h, --help              Show this help message and exit.
+  -i, --ignore-case       Ignore case when checking for palindromes
+  -m, --min=&lt;minimumLength&gt;
+                          Minimum length of palindrome
+  -V, --version           Print version information and exit.
+</pre>
+
+You are yourself responsible for handling cases such as missing files, or non-readable files, 
+
+
+Of course there is much more; this was just a little peek under the hood while there is an extensive machinery present. 
+Have a look at [https://picocli.info/](https://picocli.info/) for more details.
 
